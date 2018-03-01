@@ -1,0 +1,51 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+time_of_view        = 1.; # s.
+analog_time         = np.linspace (0, time_of_view, 10e5); # s.
+sampling_rate       = 20.; # Hz
+sampling_period     = 1. / sampling_rate; # s
+sample_number       = time_of_view / sampling_period;
+sampling_time       = np.linspace (0, time_of_view, sample_number);
+carrier_frequency   = 9.;
+amplitude           = 1;
+phase               = 0;
+
+def Exp_signal (time_point):
+    return amplitude * np.exp(2 * carrier_frequency * time_point + phase);
+sampling_signal     = Exp_signal (sampling_time);
+
+#fig = plt.figure ()
+plt.plot (analog_time,   Exp_signal (analog_time) );
+plt.stem (sampling_time,sampling_signal, linefmt='g', markerfmt='rs', basefmt='y-');
+plt.title("Sampled Exponential Signal")
+plt.xlabel("Time")
+plt.ylabel("Amplitude")
+plt.plot (analog_time,   Exp_signal (analog_time) );
+plt.show()
+
+
+
+def sin_signal (time_point):
+    return amplitude * np.sin(2 * carrier_frequency * time_point + phase);
+Sin_sampling_signal     = sin_signal (sampling_time);
+fig = plt.figure ()
+plt.plot (analog_time,   sin_signal (analog_time) );
+plt.stem (sampling_time,Sin_sampling_signal, linefmt='r', markerfmt='rs', basefmt='y-');
+plt.title("Sampled Sine Signal")
+plt.xlabel("Time")
+plt.ylabel("Amplitude")
+plt.plot (analog_time,   sin_signal (analog_time) );
+plt.show()
+
+
+def cos_signal (time_point):
+    return amplitude * np.cos(2 * carrier_frequency * time_point + phase);
+cos_sampling_signal     = cos_signal (sampling_time);
+fig = plt.figure ()
+plt.plot (analog_time,   cos_signal (analog_time) );
+plt.stem (sampling_time,cos_sampling_signal, linefmt='b', markerfmt='rs', basefmt='y-');
+plt.title("Sampled Cosine Signal")
+plt.xlabel("Time")
+plt.ylabel("Amplitude")
+plt.show()
